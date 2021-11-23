@@ -2,10 +2,12 @@
 Ubuntu 20.04 based build environment for peaq-network-node
 
 # To build
+```bash
 pushd build-image && \
 chmod +x *.sh && \
 sh build-container.sh && \
 popd
+```
 
 # To use
 
