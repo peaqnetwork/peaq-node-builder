@@ -23,6 +23,19 @@ docker run -it --rm -v $PWD:/work -v $PWD/../peaq-network-node-docker-builder/de
 cd /work
 cargo build --release
 ```
+or you can use below commands
+```bash
+cd ../peaq-network-node
+docker run --rm -it -v $(pwd):/sources rust-stable:ubuntu-20.04 cargo build --release --manifest-path=/sources/Cargo.toml
+```
 
 The built binary will be on the host machine, under peaq-network-node/target/release/peaq-node
 
+## RBAC
+If you want to build RBAC, you can follow below commands
+
+```bash
+cd ../RBAC
+docker run --rm -it -v $(pwd):/sources rust-stable:ubuntu-20.04 cargo +nightly contract build --manifest-path=/sources/Cargo.toml
+docker run --rm -it -v $(pwd):/sources rust-stable:ubuntu-20.04 cargo +nightly contract test --manifest-path=/sources/Cargo.toml
+```
