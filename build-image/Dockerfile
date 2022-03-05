@@ -33,3 +33,14 @@ RUN rustup update
 RUN rustup update nightly
 RUN rustup target add wasm32-unknown-unknown --toolchain nightly
 RUN cargo install --git https://github.com/paritytech/cachepot
+
+RUN rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu && \
+    apt-get update && \
+    apt-get install wget -y && \
+    wget https://github.com/WebAssembly/binaryen/releases/download/version_105/binaryen-version_105-x86_64-linux.tar.gz && \
+    tar -xvzf binaryen-version_105-x86_64-linux.tar.gz && \
+    cp binaryen-version_105/bin/* /bin/ && \
+    cp binaryen-version_105/include/* /usr/include/ && \
+    cp binaryen-version_105/lib/* /usr/lib/ && \
+    cargo install cargo-dylint dylint-link && \
+    cargo install --version 0.15.0 cargo-contract
