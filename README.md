@@ -31,6 +31,34 @@ docker run --rm -it -v $(pwd):/sources rust-stable:ubuntu-20.04 cargo build --re
 
 The built binary will be on the host machine, under peaq-network-node/target/release/peaq-node
 
+### Tracing node
+If we want to build the node which supports the EVM tracing module, we have to follow below commands. The runtime module with EVM tracing module is in the `target_runtime` folder after the compilation.
+
+```bash
+# Build runtime module
+docker run --rm -it --env CARGO_TARGET_DIR="/sources/target_runtime" -v $(pwd):/sources rust-stable:ubuntu-20.04 cargo build --release -p peaq-node-runtime --features "std aura evm-tracing" --manifest-path=/sources/Cargo.toml
+# Build node
+docker run --rm -it -v $(pwd):/sources rust-stable:ubuntu-20.04 cargo build --release --manifest-path=/sources/Cargo.toml
+```
+
+After building the runtime module and node, we can start a node by replacing the runtime module with EVM tracing feature.
+```bash
+# Copy the runtime module
+mkdir -p wasm
+cp target_runtime/release/wbuild/peaq-node-runtime/peaq_node_runtime.wasm wasm
+
+
+# Run the tracing node
+./target/debug/peaq-node \
+--dev \
+--tmp \
+--ws-external \
+--rpc-external \
+--ethapi=debug,trace,txpool \
+--wasm-runtime-overrides wasm \
+--execution Wasm
+```
+
 ## RBAC
 If you want to build RBAC, you can follow below commands
 
