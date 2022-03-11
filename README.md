@@ -35,6 +35,8 @@ The built binary will be on the host machine, under peaq-network-node/target/rel
 If we want to build the node which supports the EVM tracing module, we have to follow below commands. The runtime module with EVM tracing module is in the `target_runtime` folder after the compilation.
 
 ```bash
+cd ../peaq-network-node
+
 # Build runtime module
 docker run --rm -it --env CARGO_TARGET_DIR="/sources/target_runtime" -v $(pwd):/sources rust-stable:ubuntu-20.04 cargo build --release -p peaq-node-runtime --features "std aura evm-tracing" --manifest-path=/sources/Cargo.toml
 # Build node
