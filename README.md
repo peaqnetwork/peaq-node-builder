@@ -51,7 +51,7 @@ cp target_runtime/release/wbuild/peaq-node-runtime/peaq_node_runtime.wasm wasm
 
 
 # Run the tracing node
-./target/debug/peaq-node \
+./target/release/peaq-node \
 --dev \
 --tmp \
 --ws-external \
