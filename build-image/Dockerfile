@@ -2,12 +2,16 @@ FROM ubuntu:20.04
 
 WORKDIR /root
 
+RUN export TZ=Europe/Berlin
+
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
 # common packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     ca-certificates curl file \
     build-essential \
-    git clang curl libssl-dev llvm libudev-dev \
+    git clang curl libssl-dev llvm libudev-dev cmake \
     autoconf automake autotools-dev libtool xutils-dev && \
     rm -rf /var/lib/apt/lists/*
 
