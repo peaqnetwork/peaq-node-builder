@@ -41,7 +41,7 @@ RUN rustup toolchain add nightly-aarch64-apple-darwin
 
 RUN rustup component add rust-src --toolchain nightly-aarch64-apple-darwin && \
     apt-get update && \
-    apt-get install wget -y && \
+    apt-get install wget protobuf-compiler -y && \
     wget https://github.com/WebAssembly/binaryen/releases/download/version_105/binaryen-version_105-arm64-macos.tar.gz && \
     tar -xvzf binaryen-version_105-arm64-macos.tar.gz && \
     cp binaryen-version_105/bin/* /bin/ && \
